@@ -184,6 +184,11 @@
             input = document.getElementById("conta")
             conta = input.value
 
+            while(contParenteses > 0){
+                conta+=")"
+                contParenteses--
+            }
+
 
             conta = conta.replace(/x/g, "*")
             conta = conta.replace(/÷/g, "/")
