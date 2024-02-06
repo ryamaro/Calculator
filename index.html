@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="center">
+        <table>
+            <tr>
+                <td colspan="4"><input type="text" name="" id="conta" readonly></td>
+            </tr>
+            <tr>
+                <td><button onclick="adicionar('c')" class="operacao">C</button></td>
+                <td><button onclick="adicionar('()')" class="operacao">()</button></td>
+                <td><button onclick="adicionar('%',true)" class="operacao">%</button></td>
+                <td><button onclick="adicionar('÷',true)" class="operacao">÷</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="adicionar(7)" id="7" class="numero">7</button></td>
+                <td><button onclick="adicionar(8)" id="8" class="numero">8</button></td>
+                <td><button onclick="adicionar(9)" id="9" class="numero">9</button></td>
+                <td><button onclick="adicionar('x',true)" class="operacao">x</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="adicionar(4)" id="4" class="numero">4</button></td>
+                <td><button onclick="adicionar(5)" id="5" class="numero">5</button></td>
+                <td><button onclick="adicionar(6)" id="6" class="numero">6</button></td>
+                <td><button onclick="adicionar('-',true)" class="operacao">-</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="adicionar(1)" id="1" class="numero">1</button></td>
+                <td><button onclick="adicionar(2)" id="2" class="numero">2</button></td>
+                <td><button onclick="adicionar(3)" id="3" class="numero">3</button></td>
+                <td><button onclick="adicionar('+',true)" class="operacao">+</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="adicionar('<')" class="operacao">
+                        ◀</button>
+                </td>
+                <td><button onclick="adicionar(0)" class="numero">0</button></td>
+                <td><button onclick="adicionar(',')" class="operacao">,</button></td>
+                <td><button onclick="resolver()" class="operacao"
+                        style="background-color: aquamarine;color: rgb(60, 60, 60);">=</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+
+        torf = true;
+        contParenteses = 0
+
+        function adicionar(id, operacao) {
+
+            input = document.getElementById("conta")
+            conta = input.value
+
+            ultimoCaracter = conta.slice(-1);
+
+
+
+
+            if (operacao) {
+
+
+                if (ultimoCaracter != 0 & ultimoCaracter != 1 && ultimoCaracter != 2 && ultimoCaracter != 3 && ultimoCaracter != 4 && ultimoCaracter != 5 && ultimoCaracter != 6 &&
+                    ultimoCaracter != 7 && ultimoCaracter != 8 && ultimoCaracter != 9 && ultimoCaracter != ")" && ultimoCaracter != "%" && ultimoCaracter != ",") {
+                    return
+                }
+
+                if (ultimoCaracter == "%" && id == "%") {
+                    return
+                }
+
+
+            }
+
+
+
+            if (id == ",") {
+                if (ultimoCaracter == ",") {
+                    return
+                }
+                else if (ultimoCaracter == "" || ultimoCaracter == "-" || ultimoCaracter == "+" || ultimoCaracter == "x" || ultimoCaracter == "÷" || ultimoCaracter == "" || ultimoCaracter == "("|| ultimoCaracter == ")") {
+                    id = "0,"
+                }
+            }
+
+
+
+            if (id == "<") {
+
+                if (ultimoCaracter == "(") {
+                    contParenteses--
+                }
+                if (ultimoCaracter == ")") {
+                    contParenteses++
+                }
+                conta = conta.slice(0, -1);
+
+                input.value = conta
+                return
+            }
+
+            if (id == "c") {
+                input.value = ""
+                torf = true
+                contParenteses = 0
+                return
+            }
+
+            if (id == "()") {
+
+                if (ultimoCaracter == "-" || ultimoCaracter == "+" || ultimoCaracter == "x" || ultimoCaracter == "÷" || ultimoCaracter == "" || ultimoCaracter == "(") {
+                    input.value += "("
+                    contParenteses++
+                    console.log(contParenteses)
+                    return
+                }
+
+                if ((contParenteses != 0)) {
+                    input.value += ")"
+                    contParenteses--
+                    console.log(contParenteses)
+
+                }
+                else {
+                    input.value += "x("
+                    contParenteses++
+                }
+
+                return
+            }
+
+            if ((ultimoCaracter == "%" || ultimoCaracter == ")") && operacao != true) {
+                input.value += "x"
+
+
+            }
+
+
+
+            input.value += id;
+
+        }
+
+        function resolver() {
+
+            input = document.getElementById("conta")
+            conta = input.value
+
+
+            conta = conta.replace(/x/g, "*")
+            conta = conta.replace(/÷/g, "/")
+            conta = conta.replace(/,/g, ".")
+            conta = conta.replace(/%/g, "/100")
+
+            ultimoCaracter = conta.slice(-1);
+
+            console.log(conta)
+
+            while (ultimoCaracter == "+" || ultimoCaracter == "-" || ultimoCaracter == "(" || ultimoCaracter == "/" || ultimoCaracter == "*") {
+                conta = conta.slice(0, -1);
+                ultimoCaracter = conta.slice(-1);
+            }
+
+
+
+
+            resultado = eval(conta)
+
+            input.value = resultado
+        }
+    </script>
+</body>
+
+</html>
