@@ -98,16 +98,9 @@
 
                 ultimoCaracter = conta.slice(-1);
 
-
-
-
-
-
                 if (ultimoCaracter == "%" && id == "%") {
                     return
                 }
-
-
             }
 
 
@@ -173,10 +166,7 @@
 
             }
 
-
-
             input.value += id;
-
         }
 
         function resolver() {
@@ -188,7 +178,6 @@
                 conta+=")"
                 contParenteses--
             }
-
 
             conta = conta.replace(/x/g, "*")
             conta = conta.replace(/÷/g, "/")
@@ -203,9 +192,6 @@
                 conta = conta.slice(0, -1);
                 ultimoCaracter = conta.slice(-1);
             }
-
-
-
 
             resultado = eval(conta)
 
