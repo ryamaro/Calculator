@@ -54,12 +54,12 @@
     <script>
 
         torf = true;
-        contParenteses = 0
+        contParenteses = 0;
 
         function adicionar(id, operacao) {
 
-            input = document.getElementById("conta")
-            conta = input.value
+            input = document.getElementById("conta");
+            conta = input.value;
 
             ultimoCaracter = conta.slice(-1);
 
@@ -69,28 +69,28 @@
             if (operacao) {
 
                 if (ultimoCaracter == "") {
-                    return
+                    return;
                 }
 
 
                 if ((ultimoCaracter == "(" && id == "x") || (ultimoCaracter == "(" && id == "÷")) {
-                        return
+                        return;
                     }
 
 
                 if (ultimoCaracter == "+" || ultimoCaracter == "-" || ultimoCaracter == "x" || ultimoCaracter == "÷") {
                     
                     if (id == "%") {
-                        return
+                        return;
                     }
 
                     contateste = conta.slice(0, -1);
                     if ((contateste.slice(-1) == "(" && id == "x") || (contateste.slice(-1) == "(" && id == "÷")) {
-                        return
+                        return;
                     }
 
                     conta = conta.slice(0, -1);
-                    input.value = conta
+                    input.value = conta;
 
 
 
@@ -99,7 +99,7 @@
                 ultimoCaracter = conta.slice(-1);
 
                 if (ultimoCaracter == "%" && id == "%") {
-                    return
+                    return;
                 }
             }
 
@@ -107,10 +107,10 @@
 
             if (id == ",") {
                 if (ultimoCaracter == ",") {
-                    return
+                    return;
                 }
                 else if (ultimoCaracter == "" || ultimoCaracter == "-" || ultimoCaracter == "+" || ultimoCaracter == "x" || ultimoCaracter == "÷" || ultimoCaracter == "" || ultimoCaracter == "(" || ultimoCaracter == ")") {
-                    id = "0,"
+                    id = "0,";
                 }
             }
 
@@ -119,49 +119,49 @@
             if (id == "<") {
 
                 if (ultimoCaracter == "(") {
-                    contParenteses--
+                    contParenteses--;
                 }
                 if (ultimoCaracter == ")") {
-                    contParenteses++
+                    contParenteses++;
                 }
                 conta = conta.slice(0, -1);
 
-                input.value = conta
-                return
+                input.value = conta;
+                return;
             }
 
             if (id == "c") {
-                input.value = ""
-                torf = true
-                contParenteses = 0
-                return
+                input.value = "";
+                torf = true;
+                contParenteses = 0;
+                return;
             }
 
             if (id == "()") {
 
                 if (ultimoCaracter == "-" || ultimoCaracter == "+" || ultimoCaracter == "x" || ultimoCaracter == "÷" || ultimoCaracter == "" || ultimoCaracter == "(") {
-                    input.value += "("
-                    contParenteses++
-                    console.log(contParenteses)
-                    return
+                    input.value += "(";
+                    contParenteses++;
+                    console.log(contParenteses);
+                    return;
                 }
 
                 if ((contParenteses != 0)) {
-                    input.value += ")"
-                    contParenteses--
-                    console.log(contParenteses)
+                    input.value += ")";
+                    contParenteses--;
+                    console.log(contParenteses);
 
                 }
                 else {
-                    input.value += "x("
-                    contParenteses++
+                    input.value += "x(";
+                    contParenteses++;
                 }
 
-                return
+                return;
             }
 
             if ((ultimoCaracter == "%" || ultimoCaracter == ")") && operacao != true) {
-                input.value += "x"
+                input.value += "x";
 
 
             }
@@ -171,31 +171,35 @@
 
         function resolver() {
 
-            input = document.getElementById("conta")
-            conta = input.value
+            input = document.getElementById("conta");
+            conta = input.value;
 
-            while(contParenteses > 0){
-                conta+=")"
-                contParenteses--
+            if(conta == ""){
+                return;
             }
 
-            conta = conta.replace(/x/g, "*")
-            conta = conta.replace(/÷/g, "/")
-            conta = conta.replace(/,/g, ".")
-            conta = conta.replace(/%/g, "/100")
+            while(contParenteses > 0){
+                conta+=")";
+                contParenteses--;
+            }
+
+            conta = conta.replace(/x/g, "*");
+            conta = conta.replace(/÷/g, "/");
+            conta = conta.replace(/,/g, ".");
+            conta = conta.replace(/%/g, "/100");
 
             ultimoCaracter = conta.slice(-1);
 
-            console.log(conta)
+            console.log(conta);
 
             while (ultimoCaracter == "+" || ultimoCaracter == "-" || ultimoCaracter == "(" || ultimoCaracter == "/" || ultimoCaracter == "*") {
                 conta = conta.slice(0, -1);
                 ultimoCaracter = conta.slice(-1);
             }
 
-            resultado = eval(conta)
+            resultado = eval(conta);
 
-            input.value = resultado
+            input.value = resultado;
         }
     </script>
 </body>
